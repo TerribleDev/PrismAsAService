@@ -7,6 +7,9 @@ loadLanguages();
 const fastify = Fastify({
   logger: true
 })
+fastify.get('/', async (request, reply) => {
+    return reply.status(200).send(`ok`)
+})
 // Declare a route
 fastify.post('/', function (request, reply) {
   const data = request.body
