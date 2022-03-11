@@ -34,7 +34,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
       const highlightedCleaned = highlighted.trim()
       context.res = {
         status: 200,
-        body: `<pre><code>${highlightedCleaned}</code></pre>`
+        body: `<pre class="language-${lang}"><code class="language-${lang}">${highlightedCleaned}</code></pre>`
     }
     return
 
