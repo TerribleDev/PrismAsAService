@@ -12,7 +12,7 @@ fastify.get('/', async (request, reply) => {
 })
 // Declare a route
 fastify.post('/', function (request, reply) {
-  const data = request.body
+  const data = request.body?.trim()
   if(!data.startsWith('```')) {
       return reply.send(request.body)
   }
