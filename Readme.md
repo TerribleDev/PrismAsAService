@@ -1,1 +1,1 @@
-This is a fastify nodejs server that parses and runs prism on the server. This is used by my blog which does not run Node and cannot use prism. I don't use prism's JS file on the client to avoid any lighthouse impact
+This is an azure nodejs function that parses and runs prism on the server. This is used by my blog which does not run Node and cannot use prism. I don't use prism's JS file on the client to avoid any lighthouse impact
