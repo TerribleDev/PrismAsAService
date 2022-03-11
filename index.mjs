@@ -21,10 +21,10 @@ fastify.post('/', function (request, reply) {
   if(!lang) {
     return reply.send(request.body)
   }
-  const highlighted = Prism.highlight(data, Prism.languages[lang], lang)
+  const highlighted = Prism.highlight(data.replace(/```[a-zA-Z]*/m, '').replace('```', ''), Prism.languages[lang], lang)
 
   // remove any backticks and the language
-    const highlightedCleaned = highlighted.replace(/```[a-zA-Z]*/m, '').replace('```', '').trim()
+    const highlightedCleaned = highlighted.trim()
     return `<pre><code>${highlightedCleaned}</code></pre>`
 })
 
