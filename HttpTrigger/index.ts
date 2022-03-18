@@ -4,7 +4,7 @@ import * as loadLanguages from 'prismjs/components/index.js';
 loadLanguages();
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    if(req.method === "GET") {
+    if (req.method === "GET") {
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: "Ok"
@@ -12,7 +12,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return;
     }
     const data = req.rawBody;
-    if(!data.startsWith('```')) {
+    if (!data.startsWith('```')) {
         context.res = {
             status: 200,
             body: req.rawBody
@@ -21,22 +21,30 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
     const regex = data.match(/^```([a-zA-Z]*)$/m)
     const lang = regex[1]
-    if(!lang) {
+    if (!lang) {
         context.res = {
             status: 200,
             body: req.rawBody
         }
         return
     }
-    const highlighted = Prism.highlight(data.replace(/```[a-zA-Z]*/m, '').replace('```', ''), Prism.languages[lang], lang)
-  
-    // remove any backticks and the language
-      const highlightedCleaned = highlighted.trim()
-      context.res = {
-        status: 200,
-        body: `<pre class="language-${lang}"><code class="language-${lang}">${highlightedCleaned}</code></pre>`
+    try {
+        const highlighted = Prism.highlight(data.replace(/```[a-zA-Z]*/m, '').replace('```', ''), Prism.languages[lang], lang)
+
+        // remove any backticks and the language
+        const highlightedCleaned = highlighted.trim()
+        context.res = {
+            status: 200,
+            body: `<pre class="language-${lang}"><code class="language-${lang}">${highlightedCleaned}</code></pre>`
+        }
+    } catch {
+        context.res = {
+            status: 200,
+            body: req.rawBody
+        }
     }
     return
+
 
 };
 
