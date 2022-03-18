@@ -20,7 +20,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return
     }
     const regex = data.match(/^```([a-zA-Z]*)$/m)
-    const lang = regex[1]
+    const lang = regex[1]?.toLowerCase()
     if (!lang) {
         context.res = {
             status: 200,
